@@ -1,7 +1,6 @@
 import sys
 from collections import deque
 
-sys.stdin = open("input.txt", "r")
 N = int(sys.stdin.readline())
 M = int(sys.stdin.readline())
 
