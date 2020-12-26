@@ -25,3 +25,4 @@ def dfs(x, y, n):
 dfs(0, 0, 0)
 print(answer)
 #왜 set이 더 느린지???? 
+#메모이제이션
