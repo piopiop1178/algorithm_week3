@@ -19,7 +19,6 @@ for _ in range(M):
     graph[k].append(v)
     graph[v].append(k)
 
-
 # # 재귀로 구현 1
 # def dfs(start_v):
 #     discovered.append(start_v)
