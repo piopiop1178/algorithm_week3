@@ -11,7 +11,7 @@ for _ in range(M):
     X, Y, K = map(int, sys.stdin.readline().split())
     arr[X].append([Y, K])
     cnt[Y] += 1
-
+print(arr)
 queue = [N]
 while queue:
     target = queue.pop()
