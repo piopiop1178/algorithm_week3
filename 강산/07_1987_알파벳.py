@@ -1,12 +1,8 @@
 import sys
-<<<<<<< HEAD
-sys.stdin = open("input.txt", "r")
-=======
 sys.stdin = open('input.txt', "r")
 r, c = map(int, sys.stdin.readline().strip().split())
 board = [sys.stdin.readline().strip() for _ in range(r)]
 route_set = set()
->>>>>>> f543c7eeb045d07a222fd67dcee9352b1e3d791b
 
 dxy = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 stack = [(board[0][0], 0, 0, 1)]
@@ -39,23 +35,13 @@ print(answer)
 #     n += 1
 #     answer = max(answer, n)
     
-<<<<<<< HEAD
-    check[board[y][x]] = True
-    for i in range(4):
-        nx, ny = x + dx[i], y + dy[i]
-        if 0 <= nx < C and 0 <= ny < R:
-            if not check[board[ny][nx]]:
-                dfs(nx, ny, n)
-    check[board[y][x]] = False
-=======
-#     check[board[y][x]] = True
-#     for i in range(4):
-#         nx, ny = x + dx[i], y + dy[i]
-#         if 0 <= nx < C and 0 <= ny < R:
-#             if not check[board[ny][nx]] :
-#                 dfs(nx, ny, n)
-#     check[board[y][x]] = False
->>>>>>> f543c7eeb045d07a222fd67dcee9352b1e3d791b
+    # check[board[y][x]] = True
+    # for i in range(4):
+    #     nx, ny = x + dx[i], y + dy[i]
+    #     if 0 <= nx < C and 0 <= ny < R:
+    #         if not check[board[ny][nx]]:
+    #             dfs(nx, ny, n)
+    # check[board[y][x]] = False
 
 # dfs(0, 0, 0)
 # print(answer)
