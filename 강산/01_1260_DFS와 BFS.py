@@ -10,13 +10,24 @@ for _ in range(M):
     x, y = map(int, sys.stdin.readline().split())
     road[x][y] = 1
     road[y][x] = 1
-print(road)
 
-def dfs(road, start, answer):
-    answer.append(start)
-    for i in range(N + 1):
-        if road[start][i] and i not in answer:
-            answer = dfs(road, i, answer)
+# def dfs(road, start, answer):
+#     answer.append(start)
+#     for i in range(N + 1):
+#         if road[start][i] and i not in answer:
+#             answer = dfs(road, i, answer)
+#     return answer
+
+def dfs(road, start):
+    stack = [start]
+    answer = []
+    while stack:
+        target = stack.pop()
+        if target not in answer:
+            answer.append(target)
+            for i in range(N, 0, -1):
+                if road[target][i] and i:
+                    stack.append(i)
     return answer
 
 def bfs(road, V):
@@ -30,5 +41,5 @@ def bfs(road, V):
                 answer.append(i)
     return answer
 
-print(*dfs(road, V, []))
+print(*dfs(road, V))
 print(*bfs(road, V))
