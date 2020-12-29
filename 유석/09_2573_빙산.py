@@ -29,7 +29,7 @@ def dfs():
         glacier = 0
         for x in range(M):
             for y in range(N):
-                if ocean[x][y] and (x, y) not in temp_dic:
+                if ocean[x][y] and (x, y) not in temp_dic: # 새로운게 나오자마자 리턴하니까 문제가 발생했다...
                     glacier += 1
                     if glacier >= 2:
                         print(x, y)

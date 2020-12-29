@@ -1,5 +1,6 @@
 import sys
-sys.stdin = open("input.txt", "r")
+sys.stdin = open("../../../test/glacier.txt", "r")
+
 #input=sys.stdin.readline
 
 n, m = map(int, input().split())
@@ -54,5 +55,6 @@ while ice:
             zone[y][x]=0
             ice.pop(i)
         melt[y][x]=0
+print(ice)
 
 print(ans)

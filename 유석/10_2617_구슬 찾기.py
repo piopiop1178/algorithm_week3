@@ -16,21 +16,22 @@ for _ in range(M):
 
 def dfs(v, graph):
     stack = []
-    count = 0
+    count = set()
     stack.append((v, count))
     while stack:
         v, count = stack.pop()
         if v in graph:
-            count += len(graph[v])
-            if count > N // 2:
-                return 1
             for w in graph[v]:
+                count.add(w)
+                if len(count) > N//2:
+                    return 1
                 stack.append((w, count))
     return 0
 
 answer = 0
-for i in range(1, N+1):
-    answer += dfs(i, heavy_graph)
-    answer += dfs(i, light_graph)
+for key in heavy_graph:
+    answer += dfs(key, heavy_graph)
+for key in light_graph:
+    answer += dfs(key, light_graph)
 
 print(answer)
