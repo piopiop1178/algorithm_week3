@@ -10,7 +10,7 @@ for _ in range(n):
 # zone=[list(map(int, list(input()))) for _ in range(n)]
 # 위 쓸때는 input=sys.stdin.readline 적용X
 # 아니면 그냥 아래 쓸것!
-# zone=[list(map(int, list(sys.stdin.readline().rstrip())))
+# zone=[list(map(int, list(sys.stdin.readline().rstrip()))) for _ in range(n)]
 
 # check=[[False]*m for _ in range(n)]
 # check[0][0]=True
