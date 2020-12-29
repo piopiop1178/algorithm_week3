@@ -3,43 +3,62 @@ sys.stdin = open("../../../test/glacier.txt", "r")
 read = sys.stdin.readline
 M, N = map(int, read().rstrip().split())
 stack = []
-check_list = []
-glacier = [list(map(int, read().rstrip().split())) for _ in range(M)]
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
+ocean = [list(map(int, read().rstrip().split())) for _ in range(M)]
+dx = (1, 0, -1, 0)
+dy = (0, 1, 0, -1)
+temp_dic = {}
 
-def check(x, y):
-    count = 0
-    for i in range(len(dx)):
-        around_x, around_y = x+dx[i], y+dy[i]
-        if 0 <= around_x < M and 0 <= around_y < N:
-            if not glacier[around_x][around_y]:
-                count += 1
-    if glacier[x][y] <= count:
+
+def melt(x, y):
+    result = ocean[x][y]
+    for i in range(4):
+        temp_x = x + dx[i]
+        temp_y = y + dy[i]
+        if 0 <= temp_x < M and 0 <= temp_y < N:
+            if not ocean[temp_x][temp_y]:
+                result -= 1
+    if result <= 0:
         return 0
     else:
-        return glacier[x][y] - count
+        return result
 
-g_count = 0
-count = 0
-while g_count < 2:
-    count += 1
-    for x in range(M):
-        for y in range(N):
-            if not glacier[x][y] and (x, y) not in check_list:
-                g_count += 1
-                stack.append((x, y))
-                check_list.append((x, y))
-                while True:
-                    for i in range(len(dx)):
-                        next_x, next_y = x+dx[i], y+dy[i]
-                        if 0 <= next_x < M and 0 <= next_y < N:
-                            if not glacier[next_x][next_y] and (next_x, next_y) not in check_list:
-                                stack.append((next_x, next_y))
-                                check_list.append((next_x, next_y))
-                                x, y = next_x, next_y
-            while stack:
-                now_x, now_y = stack.pop()
-                glacier[now_x][now_y] = check(now_x, now_y)
 
-print(count)
+def dfs():
+    answer = 0
+    while True:
+        glacier = 0
+        for x in range(M):
+            for y in range(N):
+                if ocean[x][y] and (x, y) not in temp_dic:
+                    glacier += 1
+                    if glacier >= 2:
+                        print(x, y)
+                        return answer
+                    stack.append((x, y))
+                    temp_dic[(x, y)] = melt(x, y)
+                    while stack:
+                        # print(stack)
+                        # print(temp_dic)
+                        x, y = stack.pop()
+                        for i in range(4):
+                            temp_x = x + dx[i]
+                            temp_y = y + dy[i]
+                            if 0 <= temp_x < M and 0 <= temp_y < N:
+                                if ocean[temp_x][temp_y] and (temp_x, temp_y) not in temp_dic:
+                                    temp_dic[(temp_x, temp_y)] = melt(temp_x, temp_y)
+                                    stack.append((temp_x, temp_y))
+        print(temp_dic)
+        if not temp_dic:
+            return 0
+        for key, value in temp_dic.items():
+            x, y = key
+            ocean[x][y] = value
+        temp_dic.clear()
+        answer += 1
+        print(glacier)
+        for i in range(M):
+            print(*ocean[i])
+        print()
+
+
+print(dfs())
