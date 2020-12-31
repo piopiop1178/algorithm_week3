@@ -2,30 +2,28 @@ import sys
 sys.stdin = open("../../../test/bead.txt", "r")
 read = sys.stdin.readline
 N, M = map(int, read().rstrip().split())
-heavy_graph = {}
-light_graph = {}
+heavy_graph = {i: [] for i in range(1, N+1)}
+light_graph = {i: [] for i in range(1, N+1)}
 for _ in range(M):
     h, l = map(int, read().rstrip().split())
-    if h not in heavy_graph:
-        heavy_graph[h] = []
-    if l not in light_graph:
-        light_graph[l] = []
     heavy_graph[h].append(l)
     light_graph[l].append(h)
 
 
 def dfs(v, graph):
+    repeat_list = [1 for _ in range(N + 1)]
     stack = []
-    count = set()
-    stack.append((v, count))
+    count = 0
+    stack.append(v)
     while stack:
-        v, count = stack.pop()
-        if v in graph:
-            for w in graph[v]:
-                count.add(w)
-                if len(count) > N//2:
+        v = stack.pop()
+        for w in graph[v]:
+            if repeat_list[w]:
+                repeat_list[w] = 0
+                count += 1
+                if count > N//2:
                     return 1
-                stack.append((w, count))
+                stack.append(w)
     return 0
 
 answer = 0
